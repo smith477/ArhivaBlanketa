@@ -13,5 +13,6 @@ namespace ArhivaBlanketa.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public byte[] Content { get; set; }
+        public bool Status { get; set; }
     }
 }

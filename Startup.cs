@@ -33,6 +33,13 @@ namespace ArhivaBlanketa
             services.AddSingleton<ISheetDataBaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<SheetArchiveDataBaseSettings>>().Value);
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             services.AddSingleton<UserServices>();
             services.AddSingleton<SheetServices>();
             services.AddSingleton<SubjectServices>();
@@ -49,6 +56,8 @@ namespace ArhivaBlanketa
             }
 
             app.UseRouting();
+
+            app.UseCors("MyPolicy");
 
             app.UseAuthorization();
 
