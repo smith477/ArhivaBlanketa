@@ -22,6 +22,17 @@ namespace ArhivaBlanketa.Models
         public List<User> Get() =>
           _users.Find(user => true).ToList();
 
+        public User LogIn(User ur)
+        {
+           List<User> users = _users.Find(user => true).ToList();
+            User u = new User();
+            foreach (User usr in users)
+                if (usr.Email == ur.Email && usr.Password == ur.Password)
+                    u = usr;
+            if (u.Id != null)
+                return u;
+            else throw new Exception("Email or password incorrect");
+        }
         public User Get(string id) =>
             _users.Find<User>(User => User.Id == id).FirstOrDefault();
 

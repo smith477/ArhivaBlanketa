@@ -23,6 +23,12 @@ namespace ArhivaBlanketa.Controllers
         public ActionResult<List<User>> Get() =>
             _userService.Get();
 
+        [HttpGet("login")]
+        public ActionResult<User> Login([FromBody]User usr)
+        {
+            return _userService.LogIn(usr);
+        }
+
         [HttpGet("{id:length(24)}", Name = "GetUser")]
         public ActionResult<User> Get(string id)
         {

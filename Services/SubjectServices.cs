@@ -16,7 +16,7 @@ namespace ArhivaBlanketa.Services
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
-            _subjects = database.GetCollection<Subject>("Subjects");
+            _subjects = database.GetCollection<Subject>("Subject");
         }
 
         public List<Subject> Get() =>
