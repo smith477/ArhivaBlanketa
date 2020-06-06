@@ -27,6 +27,7 @@ namespace ArhivaBlanketa.Models
 
         public User Create(User user)
         {
+            user.Admin = false;
             _users.InsertOne(user);
             return user;
         }
