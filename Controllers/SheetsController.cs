@@ -36,10 +36,24 @@ namespace ArhivaBlanketa.Controllers
             return sheet;
         }
 
-        [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, [FromBody] Sheet sheetIn)
+        [HttpPost("{id:length(24)}")]
+        public IActionResult Add(string id, [FromBody] Sheet sheetIn)
         {
             _sheetServices.Add(id, sheetIn);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id:length(24)}")]
+        public IActionResult Update(string id, Sheet sheetIn)
+        {
+            var sheet = _sheetServices.GetSheet(id);
+
+            if (sheet == null)
+            {
+                return NotFound();
+            }
+            _sheetServices.Update(sheet, sheetIn);
 
             return NoContent();
         }

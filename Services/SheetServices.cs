@@ -30,8 +30,18 @@ namespace ArhivaBlanketa.Services
         public void Add(string id, Sheet sheet)
         {
             _subject.AddImg(id, sheet.Id);
+            sheet.Status = false;
             _sheets.InsertOne(sheet);
         }
+
+        public void Update(Sheet sheet, Sheet sheetIn)
+        {
+            if (sheetIn.Id == null)
+                sheetIn.Id = sheet.Id;
+
+            _sheets.ReplaceOne(sht => sht.Id == sheet.Id, sheetIn);
+        }
+
 
         public void Remove(string id) =>
             _sheets.DeleteOne(sheet => sheet.Id == id);
