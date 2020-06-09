@@ -12,7 +12,7 @@ namespace ArhivaBlanketa.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public string Ttitle { get; set; }
+        public string Title { get; set; }
         public string Content { get; set; }
         public bool Status { get; set; }
     }

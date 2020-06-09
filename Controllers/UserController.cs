@@ -23,7 +23,7 @@ namespace ArhivaBlanketa.Controllers
         public ActionResult<List<User>> Get() =>
             _userService.Get();
 
-        [HttpGet("login")]
+        [HttpPost("login")]
         public ActionResult<User> Login([FromBody]User usr)
         {
             return _userService.LogIn(usr);
@@ -45,6 +45,7 @@ namespace ArhivaBlanketa.Controllers
         [HttpPost]
         public ActionResult<User> Create([FromBody] User user)
         {
+            
             _userService.Create(user);
 
             return CreatedAtRoute("GetUser", new { id = user.Id.ToString() }, user);
