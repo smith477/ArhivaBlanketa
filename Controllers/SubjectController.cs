@@ -58,6 +58,10 @@ namespace ArhivaBlanketa.Controllers
             return NoContent();
         }
 
+        [HttpGet("{major}")]
+        public ActionResult<List<Subject>> FilterByMajor(string major) =>
+            _subjectService.FilterByMajor(major);
+
         [HttpDelete("{id:length(24)}")]
         public IActionResult Delete(string id)
         {
