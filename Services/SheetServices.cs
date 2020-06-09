@@ -14,6 +14,7 @@ namespace ArhivaBlanketa.Services
 
         public SheetServices(ISheetDataBaseSettings settings)
         {
+            
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
@@ -29,11 +30,12 @@ namespace ArhivaBlanketa.Services
 
         public void Add(string id, Sheet sheet)
         {
-            Subject s = _subject.Find(sub => sub.Id == id).FirstOrDefault();
-            s.Sheets.Add(sheet.Id);
-            _subject.ReplaceOne(sbj => sbj.Id == s.Id, s);
+            Subject s = new Subject();
+            s = _subject.Find(sub => sub.Id == id).FirstOrDefault();
             sheet.Status = false;
             _sheets.InsertOne(sheet);
+            s.Sheets.Add(sheet.Id.ToString());
+            _subject.ReplaceOne(sbj => sbj.Id == s.Id, s);
         }
 
         public void Update(Sheet sheet, Sheet sheetIn)

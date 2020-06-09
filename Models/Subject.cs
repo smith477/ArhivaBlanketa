@@ -9,6 +9,11 @@ namespace ArhivaBlanketa.Models
 {
     public class Subject
     {
+        public Subject()
+        {
+            Sheets = new List<string>();
+        }
+
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
