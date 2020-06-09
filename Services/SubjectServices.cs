@@ -46,13 +46,6 @@ namespace ArhivaBlanketa.Services
         public List<Subject> FilterByMajor(string major) =>
             _subjects.Find(subject => subject.Major == major).ToList();
 
-        public void AddImg(string subjectId, string sheetId)
-        {
-            Subject s = _subjects.Find(sub => sub.Id == subjectId).FirstOrDefault();
-            s.Sheets.Add(sheetId);
-            _subjects.ReplaceOne(sbj => sbj.Id == s.Id, s);
-        }
-
         public void Remove(string id) =>
             _subjects.DeleteOne(subject => subject.Id == id);
 

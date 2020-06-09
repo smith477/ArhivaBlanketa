@@ -10,15 +10,15 @@ namespace ArhivaBlanketa.Services
     public class SheetServices
     {
         private readonly IMongoCollection<Sheet> _sheets;
-        private readonly SubjectServices _subject;
+        private readonly IMongoCollection<Subject> _subject;
 
-        public SheetServices(ISheetDataBaseSettings settings, SubjectServices subject)
+        public SheetServices(ISheetDataBaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
             _sheets = database.GetCollection<Sheet>("Sheet");
-            _subject = subject;
+            _subject = database.GetCollection<Subject>("Subject");
         }
 
         public List<Sheet> Get() =>
@@ -29,7 +29,9 @@ namespace ArhivaBlanketa.Services
 
         public void Add(string id, Sheet sheet)
         {
-            _subject.AddImg(id, sheet.Id);
+            Subject s = _subject.Find(sub => sub.Id == id).FirstOrDefault();
+            s.Sheets.Add(sheet.Id);
+            _subject.ReplaceOne(sbj => sbj.Id == s.Id, s);
             sheet.Status = false;
             _sheets.InsertOne(sheet);
         }
