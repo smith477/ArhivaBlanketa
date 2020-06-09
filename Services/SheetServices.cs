@@ -47,7 +47,13 @@ namespace ArhivaBlanketa.Services
         }
 
 
-        public void Remove(string id) =>
+        public void Remove(string id)
+        {
+            List<Subject> subjects = _subject.Find(sheet => true).ToList();
+            foreach (Subject subj in subjects)
+                subj.Sheets.Remove(id);
+
             _sheets.DeleteOne(sheet => sheet.Id == id);
+        }
     }
 }
