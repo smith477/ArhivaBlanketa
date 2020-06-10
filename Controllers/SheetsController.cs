@@ -45,10 +45,10 @@ namespace ArhivaBlanketa.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, Sheet sheetIn)
+        public IActionResult Update(string id, [FromBody] Sheet sheetIn)
         {
             var sheet = _sheetServices.GetSheet(id);
-
+            
             if (sheet == null)
             {
                 return NotFound();
