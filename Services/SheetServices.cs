@@ -50,9 +50,10 @@ namespace ArhivaBlanketa.Services
         public void Remove(string id)
         {
             List<Subject> subjects = _subject.Find(sheet => true).ToList();
-            foreach (Subject subj in subjects)
+            foreach (Subject subj in subjects) { 
                 subj.Sheets.Remove(id);
-
+                _subject.ReplaceOne(sbj => sbj.Id == subj.Id, subj);
+            }
             _sheets.DeleteOne(sheet => sheet.Id == id);
         }
     }
