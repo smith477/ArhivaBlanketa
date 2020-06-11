@@ -15,5 +15,6 @@ namespace ArhivaBlanketa.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public bool Status { get; set; }
+        public string SubjectName { get; set; }
     }
 }

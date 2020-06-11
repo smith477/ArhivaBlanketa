@@ -1,4 +1,5 @@
 ﻿using ArhivaBlanketa.Models;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -25,17 +26,21 @@ namespace ArhivaBlanketa.Services
         public List<Sheet> Get() =>
             _sheets.Find(sheet => true).ToList();
 
+        public List<Sheet> GetBySubject(string subjectName)
+        {
+            return _sheets.Find(sheet => sheet.SubjectName == subjectName).ToList();
+        }
+        
+
         public Sheet GetSheet(string id) =>
             _sheets.Find(sheet => sheet.Id == id).FirstOrDefault();
 
-        public void Add(string id, Sheet sheet)
+        public void Add(Sheet sheet)
         {
-            Subject s = new Subject();
-            s = _subject.Find(sub => sub.Id == id).FirstOrDefault();
+            
             sheet.Status = false;
             _sheets.InsertOne(sheet);
-            s.Sheets.Add(sheet.Id.ToString());
-            _subject.ReplaceOne(sbj => sbj.Id == s.Id, s);
+           
         }
 
         public void Update(Sheet sheet, Sheet sheetIn)

@@ -23,6 +23,11 @@ namespace ArhivaBlanketa.Controllers
         public ActionResult<List<Sheet>> Get() =>
             _sheetServices.Get();
 
+        [HttpGet("{subjectName}")]
+        public ActionResult<List<Sheet>> GetBySubject(string subjectName) =>
+            
+            _sheetServices.GetBySubject(subjectName);
+
         [HttpGet("{id:length(24)}")]
         public ActionResult<Sheet> Get(string id)
         {
@@ -36,10 +41,10 @@ namespace ArhivaBlanketa.Controllers
             return sheet;
         }
 
-        [HttpPost("{id:length(24)}")]
-        public IActionResult Add(string id, [FromBody] Sheet sheetIn)
+        [HttpPost]
+        public IActionResult Add([FromBody] Sheet sheetIn)
         {
-            _sheetServices.Add(id, sheetIn);
+            _sheetServices.Add(sheetIn);
 
             return NoContent();
         }
